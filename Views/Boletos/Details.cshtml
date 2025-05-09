@@ -1,0 +1,42 @@
+﻿@model TransporteBoletos.Models.Boleto
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Boleto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroBoleto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroBoleto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaCompra)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaCompra)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RutaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ruta.Origen) - @Html.DisplayFor(model => model.Ruta.Destino)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PasajeroId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pasajero.Nombre) (@Html.DisplayFor(model => model.Pasajero.Documento))
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Volver a la lista</a>
+</div>

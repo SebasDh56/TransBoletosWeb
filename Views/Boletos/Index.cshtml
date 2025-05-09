@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TransporteBoletos.Models.Boleto>
+
+@{
+    ViewData["Title"] = "Boletos";
+}
+
+<h1>Boletos</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo Boleto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NumeroBoleto)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaCompra)</th>
+            <th>@Html.DisplayNameFor(model => model.RutaId)</th>
+            <th>@Html.DisplayNameFor(model => model.PasajeroId)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NumeroBoleto)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
+                <td>@Html.DisplayFor(modelItem => item.RutaId)</td>
+                <td>@Html.DisplayFor(modelItem => item.PasajeroId)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
