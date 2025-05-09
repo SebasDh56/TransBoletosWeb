@@ -3,8 +3,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenido</h1>
-    <p>Aprende sobre <a href="https://docs.microsoft.com/aspnet/core">ASP.NET Core</a>.</p>
-    <p><a class="nav-link text-dark" asp-area="" asp-controller="Boletos" asp-action="Index">Ver Boletos</a></p>
-    <p><a class="nav-link text-dark" asp-area="" asp-controller="Pasajeros" asp-action="Index">Ver Pasajeros</a></p>
+    <h1 class="display-4 mb-4">Bienvenido a TransporteBoletos</h1>
+    <p class="lead">Gestiona tus boletos de transporte de manera fácil y eficiente.</p>
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg me-3" asp-controller="Boletos" asp-action="Index">Ver Boletos</a>
+        <a class="btn btn-primary btn-lg" asp-controller="Pasajeros" asp-action="Index">Ver Pasajeros</a>
+    </div>
 </div>

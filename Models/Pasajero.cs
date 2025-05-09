@@ -5,13 +5,16 @@ namespace TransporteBoletos.Models
     public class Pasajero
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string Nombre { get; set; } = string.Empty;
-        [Required(ErrorMessage = "La cédula es obligatoria.")]
-        [StringLength(10, MinimumLength = 7, ErrorMessage = "La cédula debe tener entre 7 y 10 dígitos.")]
-        [RegularExpression(@"^\d{7,10}$", ErrorMessage = "La cédula debe contener solo números y tener entre 7 y 10 dígitos.")]
+
+        [Required(ErrorMessage = "El documento es obligatorio.")]
         public string Documento { get; set; } = string.Empty;
-        public List<Boleto> Boletos { get; set; } = new List<Boleto>();
-        public int? RutaId { get; set; } // Permitir nulo si no siempre se asigna una ruta
-        public Ruta? Ruta { get; set; }
+
+        public int? RutaId { get; set; } // Clave foránea para Ruta (nullable si no siempre requiere una ruta)
+        public Ruta? Ruta { get; set; } // Propiedad de navegación
+
+        public List<Boleto> Boletos { get; set; } = new List<Boleto>(); // Relación uno a muchos
     }
 }

@@ -1,42 +1,42 @@
 ﻿@model TransporteBoletos.Models.Boleto
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Detalles del Boleto";
 }
 
-<h1>Detalles</h1>
+<h1>Detalles del Boleto</h1>
 
-<div>
-    <h4>Boleto</h4>
+<div class="card p-4 shadow-sm">
+    <h4 class="card-title">Información del Boleto</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.NumeroBoleto)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.NumeroBoleto)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.FechaCompra)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.FechaCompra)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.RutaId)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ruta.Origen) - @Html.DisplayFor(model => model.Ruta.Destino)
+        <dd class="col-sm-9">
+            @(Model.Ruta != null ? $"{Model.Ruta.Origen} - {Model.Ruta.Destino}" : "Sin ruta")
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.PasajeroId)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pasajero.Nombre) (@Html.DisplayFor(model => model.Pasajero.Documento))
+        <dd class="col-sm-9">
+            @(Model.Pasajero != null ? $"{Model.Pasajero.Nombre} ({Model.Pasajero.Documento})" : "Sin pasajero")
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-    <a asp-action="Index">Volver a la lista</a>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </div>
 </div>

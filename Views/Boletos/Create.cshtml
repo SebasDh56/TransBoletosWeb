@@ -4,47 +4,46 @@
     ViewData["Title"] = "Crear Boleto";
 }
 
-<h1>Crear</h1>
+<h1>Crear Boleto</h1>
 
-<h4>Boleto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NumeroBoleto" class="control-label"></label>
-                <input asp-for="NumeroBoleto" class="form-control" />
-                <span asp-validation-for="NumeroBoleto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaCompra" class="control-label"></label>
-                <input asp-for="FechaCompra" class="form-control" type="datetime-local" />
-                <span asp-validation-for="FechaCompra" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RutaId" class="control-label"></label>
-                <select asp-items="ViewBag.Rutas" asp-for="RutaId" class="form-control">
-                    <option value="">-- Seleccione una ruta --</option>
-                </select>
-                <span asp-validation-for="RutaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PasajeroId" class="control-label"></label>
-                <select asp-items="ViewBag.Pasajeros" asp-for="PasajeroId" class="form-control">
-                    <option value="">-- Seleccione un pasajero --</option>
-                </select>
-                <span asp-validation-for="PasajeroId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="card p-4 shadow-sm">
+    <h4 class="card-title">Nuevo Boleto</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="NumeroBoleto" class="form-label"></label>
+                    <input asp-for="NumeroBoleto" class="form-control" />
+                    <span asp-validation-for="NumeroBoleto" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="FechaCompra" class="form-label"></label>
+                    <input asp-for="FechaCompra" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="FechaCompra" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="RutaId" class="form-label"></label>
+                    <select asp-items="ViewBag.Rutas" asp-for="RutaId" class="form-select">
+                        <option value="">-- Seleccione una ruta --</option>
+                    </select>
+                    <span asp-validation-for="RutaId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="PasajeroId" class="form-label"></label>
+                    <select asp-items="ViewBag.Pasajeros" asp-for="PasajeroId" class="form-select">
+                        <option value="">-- Seleccione un pasajero --</option>
+                    </select>
+                    <span asp-validation-for="PasajeroId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {

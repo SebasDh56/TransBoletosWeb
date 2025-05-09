@@ -7,10 +7,10 @@
 <h1>Boletos</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo Boleto</a>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Boleto</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table-striped table-hover table">
+    <thead class="table-dark">
         <tr>
             <th>@Html.DisplayNameFor(model => model.NumeroBoleto)</th>
             <th>@Html.DisplayNameFor(model => model.FechaCompra)</th>
@@ -25,12 +25,12 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.NumeroBoleto)</td>
                 <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
-                <td>@Html.DisplayFor(modelItem => item.RutaId)</td>
-                <td>@Html.DisplayFor(modelItem => item.PasajeroId)</td>
+                <td>@(item.Ruta != null ? item.Ruta.Origen : "Sin ruta")</td>
+                <td>@(item.Pasajero != null ? item.Pasajero.Nombre : "Sin pasajero")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
         }

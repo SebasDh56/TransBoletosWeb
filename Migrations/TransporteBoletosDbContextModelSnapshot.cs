@@ -50,6 +50,16 @@ namespace TransporteBoletos.Migrations
                     b.HasIndex("RutaId");
 
                     b.ToTable("Boletos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FechaCompra = new DateTime(2025, 5, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            NumeroBoleto = "B001",
+                            PasajeroId = 1,
+                            RutaId = 1
+                        });
                 });
 
             modelBuilder.Entity("TransporteBoletos.Models.Pasajero", b =>
@@ -68,9 +78,23 @@ namespace TransporteBoletos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RutaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("RutaId");
+
                     b.ToTable("Pasajeros");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Documento = "12345678",
+                            Nombre = "Juan Pérez",
+                            RutaId = 1
+                        });
                 });
 
             modelBuilder.Entity("TransporteBoletos.Models.Ruta", b =>
@@ -92,6 +116,20 @@ namespace TransporteBoletos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rutas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Destino = "Ciudad B",
+                            Origen = "Ciudad A"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Destino = "Ciudad C",
+                            Origen = "Ciudad B"
+                        });
                 });
 
             modelBuilder.Entity("TransporteBoletos.Models.Boleto", b =>
@@ -99,16 +137,26 @@ namespace TransporteBoletos.Migrations
                     b.HasOne("TransporteBoletos.Models.Pasajero", "Pasajero")
                         .WithMany("Boletos")
                         .HasForeignKey("PasajeroId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TransporteBoletos.Models.Ruta", "Ruta")
                         .WithMany("Boletos")
                         .HasForeignKey("RutaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Pasajero");
+
+                    b.Navigation("Ruta");
+                });
+
+            modelBuilder.Entity("TransporteBoletos.Models.Pasajero", b =>
+                {
+                    b.HasOne("TransporteBoletos.Models.Ruta", "Ruta")
+                        .WithMany("Pasajeros")
+                        .HasForeignKey("RutaId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Ruta");
                 });
@@ -121,6 +169,8 @@ namespace TransporteBoletos.Migrations
             modelBuilder.Entity("TransporteBoletos.Models.Ruta", b =>
                 {
                     b.Navigation("Boletos");
+
+                    b.Navigation("Pasajeros");
                 });
 #pragma warning restore 612, 618
         }

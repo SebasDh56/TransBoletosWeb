@@ -10,25 +10,22 @@ using TransporteBoletos.Models;
 
 namespace TransporteBoletos.Controllers
 {
-    public class BoletosController : Controller
+    public class RutaController : Controller
     {
         private readonly TransporteBoletosDbContext _context;
 
-        public BoletosController(TransporteBoletosDbContext context)
+        public RutaController(TransporteBoletosDbContext context)
         {
             _context = context;
         }
 
-        // GET: Boletos
+        // GET: Ruta
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Boletos
-                .Include(b => b.Ruta)
-                .Include(b => b.Pasajero)
-                .ToListAsync());
+            return View(await _context.Rutas.ToListAsync());
         }
 
-        // GET: Boletos/Details/5
+        // GET: Ruta/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,45 +33,39 @@ namespace TransporteBoletos.Controllers
                 return NotFound();
             }
 
-            var boleto = await _context.Boletos
-                .Include(b => b.Pasajero)
-                .Include(b => b.Ruta)
+            var ruta = await _context.Rutas
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (boleto == null)
+            if (ruta == null)
             {
                 return NotFound();
             }
 
-            return View(boleto);
+            return View(ruta);
         }
 
-        // GET: Boletos/Create
+        // GET: Ruta/Create
         public IActionResult Create()
         {
-            ViewBag.Rutas = new SelectList(_context.Rutas, "Id", "Origen");
-            ViewBag.Pasajeros = new SelectList(_context.Pasajeros, "Id", "Nombre");
             return View();
         }
 
-        // POST: Boletos/Create
+        // POST: Ruta/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroBoleto,FechaCompra,RutaId,PasajeroId")] Boleto boleto)
+        public async Task<IActionResult> Create([Bind("Id,Origen,Destino")] Ruta ruta)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(boleto);
+                _context.Add(ruta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Rutas = new SelectList(_context.Rutas, "Id", "Origen");
-            ViewBag.Pasajeros = new SelectList(_context.Pasajeros, "Id", "Nombre");
-            return View(boleto);
+            return View(ruta);
         }
 
-        // GET: Boletos/Edit/5
+        // GET: Ruta/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,23 +73,22 @@ namespace TransporteBoletos.Controllers
                 return NotFound();
             }
 
-            var boleto = await _context.Boletos.FindAsync(id);
-            if (boleto == null)
+            var ruta = await _context.Rutas.FindAsync(id);
+            if (ruta == null)
             {
                 return NotFound();
             }
-
-            ViewBag.Rutas = new SelectList(_context.Rutas, "Id", "Origen", boleto.RutaId);
-            ViewBag.Pasajeros = new SelectList(_context.Pasajeros, "Id", "Nombre", boleto.PasajeroId);
-            return View(boleto);
+            return View(ruta);
         }
 
-        // POST: Boletos/Edit/5
+        // POST: Ruta/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroBoleto,RutaId,PasajeroId,FechaCompra")] Boleto boleto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Origen,Destino")] Ruta ruta)
         {
-            if (id != boleto.Id)
+            if (id != ruta.Id)
             {
                 return NotFound();
             }
@@ -107,12 +97,12 @@ namespace TransporteBoletos.Controllers
             {
                 try
                 {
-                    _context.Update(boleto);
+                    _context.Update(ruta);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BoletoExists(boleto.Id))
+                    if (!RutaExists(ruta.Id))
                     {
                         return NotFound();
                     }
@@ -123,13 +113,10 @@ namespace TransporteBoletos.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Rutas = new SelectList(_context.Rutas, "Id", "Origen", boleto.RutaId);
-            ViewBag.Pasajeros = new SelectList(_context.Pasajeros, "Id", "Nombre", boleto.PasajeroId);
-            return View(boleto);
+            return View(ruta);
         }
 
-        // GET: Boletos/Delete/5
+        // GET: Ruta/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,37 +124,34 @@ namespace TransporteBoletos.Controllers
                 return NotFound();
             }
 
-            var boleto = await _context.Boletos
-                .Include(b => b.Pasajero)
-                .Include(b => b.Ruta)
+            var ruta = await _context.Rutas
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (boleto == null)
+            if (ruta == null)
             {
                 return NotFound();
             }
 
-            return View(boleto);
+            return View(ruta);
         }
 
-        // POST: Boletos/Delete/5
+        // POST: Ruta/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var boleto = await _context.Boletos.FindAsync(id);
-            if (boleto != null)
+            var ruta = await _context.Rutas.FindAsync(id);
+            if (ruta != null)
             {
-                _context.Boletos.Remove(boleto);
+                _context.Rutas.Remove(ruta);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BoletoExists(int id)
+        private bool RutaExists(int id)
         {
-            return _context.Boletos.Any(e => e.Id == id);
+            return _context.Rutas.Any(e => e.Id == id);
         }
     }
 }

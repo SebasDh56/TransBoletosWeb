@@ -1,0 +1,30 @@
+﻿@model TransporteBoletos.Models.Ruta
+
+@{
+    ViewData["Title"] = "Detalles de la Ruta";
+}
+
+<h1>Detalles de la Ruta</h1>
+
+<div class="card p-4 shadow-sm">
+    <h4 class="card-title">Información de la Ruta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Origen)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Origen)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Destino)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Destino)
+        </dd>
+    </dl>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </div>
+</div>

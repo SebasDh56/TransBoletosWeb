@@ -1,20 +1,19 @@
-﻿@model IEnumerable<TransporteBoletos.Models.Pasajero>
+﻿@model IEnumerable<TransporteBoletos.Models.Ruta>
 
 @{
-    ViewData["Title"] = "Pasajeros";
+    ViewData["Title"] = "Rutas";
 }
 
-<h1>Pasajeros</h1>
+<h1>Rutas</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Pasajero</a>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Ruta</a>
 </p>
 <table class="table-striped table-hover table">
     <thead class="table-dark">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-            <th>@Html.DisplayNameFor(model => model.Documento)</th>
-            <th>@Html.DisplayNameFor(model => model.RutaId)</th>
+            <th>@Html.DisplayNameFor(model => model.Origen)</th>
+            <th>@Html.DisplayNameFor(model => model.Destino)</th>
             <th></th>
         </tr>
     </thead>
@@ -22,9 +21,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => item.Documento)</td>
-                <td>@(item.Ruta != null ? item.Ruta.Origen : "Sin ruta")</td>
+                <td>@Html.DisplayFor(modelItem => item.Origen)</td>
+                <td>@Html.DisplayFor(modelItem => item.Destino)</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
